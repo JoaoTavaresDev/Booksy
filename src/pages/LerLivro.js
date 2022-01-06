@@ -29,8 +29,8 @@ const LerLivro = ({navigation}) => {
 
   const atualizarBarraProgresso = texto => {
     console.log(paginasAtuais);
+    setProgressoLivro(texto / numeroPaginasLivro);
     setpaginasAtuais(texto);
-    setProgressoLivro(paginasAtuais / numeroPaginasLivro);
   };
 
   const mudarEstadoLeitura = () => {

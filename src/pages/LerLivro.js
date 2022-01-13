@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -12,36 +12,45 @@ import {Icon} from 'react-native-elements/dist/icons/Icon';
 import ProgressBar from 'react-native-progress/Bar';
 import moment from 'moment';
 import 'moment/locale/pt-br';
+
 import BotaoHome from '../components/BotaoHome.js';
 
-const LerLivro = ({navigation}) => {
+const LerLivro = ({navigation, route, props}) => {
   const [horarioAtivo, setHorarioAtivo] = useState(false);
   const [progressoLivro, setProgressoLivro] = useState(0);
   const [estadoBotaoLeitura, setEstadoBotaoLeitura] = useState(1);
-  const [paginasAtuais, setpaginasAtuais] = useState('');
+  const [paginasAtuais, setPaginasAtuais] = useState('');
   const [comecoLeitura, setComecoLeitura] = useState();
   const [fimLeitura, setFimLeitura] = useState();
   const [numeroPressTempoLeitura, setNumeroPressTempoLeitura] = useState(0);
   const [tempoDeLeituraParcial, setTempoDeLeituraParcial] = useState('00:00');
   const [tempoDeLeituraTotal, setTempoDeLeituraTotal] = useState('00:00');
 
-  const numeroPaginasLivro = 200;
+  const livro = route.params;
+  //console.log(livro);
+
+  const numeroPaginasLivro = livro.Livro.paginasTotal;
+
+  useEffect(() => {
+    setPaginasAtuais(livro.Livro.paginaAtual);
+    setProgressoLivro(paginasAtuais / numeroPaginasLivro);
+    //console.log(numeroPaginasLivro);
+  }, []);
 
   const atualizarBarraProgresso = texto => {
-    console.log(paginasAtuais);
     setProgressoLivro(texto / numeroPaginasLivro);
-    setpaginasAtuais(texto);
+    setPaginasAtuais(texto);
   };
 
   const mudarEstadoLeitura = () => {
     if (numeroPressTempoLeitura === 0) {
-      setComecoLeitura(new moment().format('HH:mm'));
       setHorarioAtivo(!horarioAtivo);
       setNumeroPressTempoLeitura(1);
       setEstadoBotaoLeitura(2);
     }
     if (numeroPressTempoLeitura === 1) {
       setFimLeitura(new moment().format('HH:mm'));
+      setTempoDeLeituraParcial(comecoLeitura.diff(fimLeitura));
       setNumeroPressTempoLeitura(2);
       setEstadoBotaoLeitura(3);
     }
@@ -60,8 +69,8 @@ const LerLivro = ({navigation}) => {
       <View>
         <View style={styles.info}>
           <Text style={styles.tituloPagina}>Livros Empoeirados</Text>
-          <Text style={styles.tituloLivro}>Morro dos ventos uivantes</Text>
-          <Text style={styles.autorLivro}>Emily Brontë</Text>
+          <Text style={styles.tituloLivro}>{livro.Livro.nomeLivro}</Text>
+          <Text style={styles.autorLivro}>{livro.Livro.nomeAutor}</Text>
           <ProgressBar
             progress={progressoLivro}
             width={null}
@@ -83,7 +92,7 @@ const LerLivro = ({navigation}) => {
             <TextInput
               numberOfLines={1}
               style={styles.atributosLivro}
-              placeholder="0"
+              placeholder={livro.Livro.paginaAtual.toString()}
               placeholderTextColor={'#818181'}
               keyboardType="number-pad"
               onChangeText={texto => atualizarBarraProgresso(texto)}

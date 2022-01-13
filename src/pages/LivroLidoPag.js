@@ -11,15 +11,16 @@ import {Rating} from 'react-native-elements';
 
 import BotaoHome from '../components/BotaoHome.js';
 
-const LivroLidoPag = ({navigation}) => {
+const LivroLidoPag = ({navigation, route}) => {
+  const livro = route.params;
   return (
     <SafeAreaView style={styles.container}>
       <BotaoHome navigation={navigation} />
       <View>
         <View style={styles.info}>
           <Text style={styles.tituloPagina}>Livros Empoeirados</Text>
-          <Text style={styles.tituloLivro}>Morro dos ventos uivantes</Text>
-          <Text style={styles.autorLivro}>Emily Brontë</Text>
+          <Text style={styles.tituloLivro}>{livro.Livro.nomeLivro}</Text>
+          <Text style={styles.autorLivro}>{livro.Livro.nomeAutor}</Text>
           <TextInput
             multiline
             numberOfLines={6}
@@ -28,6 +29,7 @@ const LivroLidoPag = ({navigation}) => {
             placeholderTextColor={'#818181'}
           />
           <Rating
+            startingValue={0}
             type="custom"
             imageSize={65}
             fractions={2}

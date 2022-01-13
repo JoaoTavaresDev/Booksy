@@ -4,22 +4,33 @@ import {StyleSheet, Text, Pressable, View} from 'react-native';
 const Livro = props => {
   const livroPressHandler = () => {
     if (props.Livro.categoria === 'Lendo') {
-      props.navigation.navigate('LerLivro');
+      props.navigation.navigate('LerLivro', {
+        Livro: props.Livro,
+      });
     }
     if (props.Livro.categoria === 'QueroLer') {
-      props.navigation.navigate('ListaDeDesejos');
+      props.navigation.navigate('ListaDeDesejos', {
+        Livro: props.Livro,
+      });
     }
     if (props.Livro.categoria === 'Lido') {
-      props.navigation.navigate('LivroLidoPag');
+      props.navigation.navigate('LivroLidoPag', {
+        Livro: props.Livro,
+      });
     }
     if (props.Livro.categoria === 'Empoeirado') {
-      props.navigation.navigate('TirarEmpoeirados');
+      props.navigation.navigate('TirarEmpoeirados', {
+        Livro: props.Livro,
+      });
     }
   };
+  //console.log(props.Livro);
 
   return (
     <Pressable style={styles.book} onPress={() => livroPressHandler()}>
-      <Text style={styles.bookName}>{props.Livro.nomeLivro}</Text>
+      <Text Livro={props.Livro} style={styles.bookName}>
+        {props.Livro.nomeLivro}
+      </Text>
     </Pressable>
   );
 };

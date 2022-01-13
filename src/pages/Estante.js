@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -14,20 +14,77 @@ import Prateleira from '../components/Prateleira.js';
 import BotaoHome from '../components/BotaoHome.js';
 
 const Estante = ({navigation}) => {
+  const [livros, setlivros] = useState([
+    {
+      key: 0,
+      nomeLivro: 'É assim que acaba',
+      categoria: 'Lendo',
+      nomeAutor: 'Emily Brontë',
+      tempoLeitura: '13:30',
+      nota: 2,
+      comentarios: 'livro ruim',
+      paginasTotal: '200',
+      paginaAtual: '50',
+    },
+    {
+      key: 1,
+      nomeLivro: 'Mentirosos',
+      categoria: 'QueroLer',
+      nomeAutor: 'Marcia',
+      tempoLeitura: '10:30',
+      nota: 4,
+      comentarios: 'livro ótimo',
+    },
+    {
+      key: 2,
+      nomeLivro: 'Hamlet',
+      categoria: 'Lido',
+      nomeAutor: 'Maria',
+      tempoLeitura: '09:30',
+      nota: 5,
+      comentarios: 'livro perfeito',
+    },
+    {
+      key: 3,
+      nomeLivro: 'Morro dos ventos Uivantes',
+      categoria: 'Empoeirado',
+      nomeAutor: 'Davi',
+      tempoLeitura: '10:00',
+      nota: 1,
+      comentarios: 'odiei',
+    },
+  ]);
+
   return (
     <SafeAreaView style={styles.container}>
       <BotaoHome navigation={navigation} />
       <ScrollView style={styles.scrollView}>
         <View style={styles.estante}>
-          <Prateleira nomePrateleira="Lendo" navigation={navigation} />
-          <Prateleira nomePrateleira="QueroLer" navigation={navigation} />
-          <Prateleira nomePrateleira="Lidos" navigation={navigation} />
-          <Prateleira nomePrateleira="Empoeirados" navigation={navigation} />
+          <Prateleira
+            nomePrateleira="Lendo"
+            navigation={navigation}
+            livros={livros}
+          />
+          <Prateleira
+            nomePrateleira="QueroLer"
+            navigation={navigation}
+            livros={livros}
+          />
+          <Prateleira
+            nomePrateleira="Lidos"
+            navigation={navigation}
+            livros={livros}
+          />
+          <Prateleira
+            nomePrateleira="Empoeirados"
+            navigation={navigation}
+            livros={livros}
+          />
         </View>
       </ScrollView>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('NovoLivro')}>
+        onPress={() => navigation.navigate('NovoLivro', {livros: livros})}>
         <Icon name="add" color="white" size={50} />
       </TouchableOpacity>
     </SafeAreaView>

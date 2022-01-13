@@ -10,8 +10,28 @@ import {
 import {Picker} from '@react-native-picker/picker';
 import BotaoHome from '../components/BotaoHome.js';
 
-const NovoLivro = ({navigation}) => {
+const NovoLivro = ({navigation, route}) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
+  const [nomeLivro, setNomeLivro] = React.useState('');
+  const [nomeAutor, setNomeAutor] = React.useState('');
+  const [numeroPaginas, setNumeroPaginas] = React.useState('');
+
+  const {livros} = route.params;
+  console.log(livros[1]);
+
+  const salvarLivro = () => {
+    livros.push({
+      nomeLivro: 'É assim que acaba',
+      categoria: 'Lendo',
+      nomeAutor: 'Emily Brontë',
+      tempoLeitura: '13:30',
+      nota: 2,
+      comentarios: 'livro ruim',
+      paginasTotal: '200',
+      paginaAtual: '50',
+    });
+    navigation.goBack();
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -25,6 +45,7 @@ const NovoLivro = ({navigation}) => {
             style={styles.atributosLivro}
             placeholder="Título"
             placeholderTextColor={'#818181'}
+            onChangeText={text => setNomeLivro(text)}
           />
           <TextInput
             multiline
@@ -32,6 +53,7 @@ const NovoLivro = ({navigation}) => {
             style={styles.atributosLivro}
             placeholder="Autor"
             placeholderTextColor={'#818181'}
+            onChangeText={text => setNomeAutor(text)}
           />
           <TextInput
             multiline
@@ -39,6 +61,7 @@ const NovoLivro = ({navigation}) => {
             style={styles.atributosLivro}
             placeholder="Numero de Páginas"
             placeholderTextColor={'#818181'}
+            onChangeText={text => setNumeroPaginas(text)}
           />
           <View style={styles.dropdown}>
             <Picker
@@ -74,7 +97,7 @@ const NovoLivro = ({navigation}) => {
             <Text style={styles.textoBotao}>Cancelar</Text>
           </TouchableHighlight>
           <TouchableHighlight
-            onPress={() => navigation.goBack()}
+            onPress={() => salvarLivro()}
             style={styles.botaoCancelar}>
             <Text style={styles.textoBotao}>Salvar</Text>
           </TouchableHighlight>

@@ -3,68 +3,29 @@ import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import Livro from './Livro';
 
 const Prateleira = props => {
-  let livros = [
-    {
-      key: 0,
-      nomeLivro: 'É assim que acaba',
-      categoria: 'Lendo',
-      autor: 'João',
-      TempoLeitura: '13:30',
-      nota: 2,
-      comentarios: 'livro ruim',
-    },
-    {
-      key: 1,
-      nomeLivro: 'Mentirosos',
-      categoria: 'QueroLer',
-      autor: 'Marcia',
-      TempoLeitura: '10:30',
-      nota: 4,
-      comentarios: 'livro ótimo',
-    },
-    {
-      key: 2,
-      nomeLivro: 'Hamlet',
-      categoria: 'Lido',
-      autor: 'Maria',
-      TempoLeitura: '09:30',
-      nota: 5,
-      comentarios: 'livro perfeito',
-    },
-    {
-      key: 3,
-      nomeLivro: 'Morro dos ventos Uivantes',
-      categoria: 'Empoeirado',
-      autor: 'Davi',
-      TempoLeitura: '10:00',
-      nota: 1,
-      comentarios: 'odiei',
-    },
-  ];
-
   let livrosLendo = [];
-  livros.map(item => {
+  props.livros.map(item => {
     if (item.categoria === 'Lendo') {
       livrosLendo.push(item);
     }
   });
 
   let livrosQueroLer = [];
-  livros.map(item => {
+  props.livros.map(item => {
     if (item.categoria === 'QueroLer') {
       livrosQueroLer.push(item);
     }
   });
 
   let livrosLido = [];
-  livros.map(item => {
+  props.livros.map(item => {
     if (item.categoria === 'Lido') {
       livrosLido.push(item);
     }
   });
 
   let livrosEmpoeirados = [];
-  livros.map(item => {
+  props.livros.map(item => {
     if (item.categoria === 'Empoeirado') {
       livrosEmpoeirados.push(item);
     }

@@ -9,15 +9,16 @@ import {
 
 import BotaoHome from '../components/BotaoHome.js';
 
-const TirarEmpoeirados = ({navigation}) => {
+const TirarEmpoeirados = ({navigation, route}) => {
+  const livro = route.params;
   return (
     <SafeAreaView style={styles.container}>
       <BotaoHome navigation={navigation} />
       <View>
         <View style={styles.info}>
           <Text style={styles.tituloPagina}>Livros Empoeirados</Text>
-          <Text style={styles.tituloLivro}>Morro dos ventos uivantes</Text>
-          <Text style={styles.autorLivro}>Emily Brontë</Text>
+          <Text style={styles.tituloLivro}>{livro.Livro.nomeLivro}</Text>
+          <Text style={styles.autorLivro}>{livro.Livro.nomeAutor}</Text>
           <TouchableOpacity
             style={styles.botaoComecarALer}
             onPress={() => navigation.goBack()}>

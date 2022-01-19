@@ -9,43 +9,47 @@ import LivroLidoPag from './pages/LivroLidoPag';
 import NovoLivro from './pages/NovoLivro';
 import TirarEmpoeirados from './pages/TirarEmpoeirados';
 
+import LivroProvider from './livrosProvider';
+
 const Stack = createNativeStackNavigator();
 
 function Routes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Estante"
-          component={Estante}
-          options={{header: () => null}}
-        />
-        <Stack.Screen
-          name="LerLivro"
-          component={LerLivro}
-          options={{header: () => null}}
-        />
-        <Stack.Screen
-          name="ListaDeDesejos"
-          component={ListaDeDesejos}
-          options={{header: () => null}}
-        />
-        <Stack.Screen
-          name="LivroLidoPag"
-          component={LivroLidoPag}
-          options={{header: () => null}}
-        />
-        <Stack.Screen
-          name="NovoLivro"
-          component={NovoLivro}
-          options={{header: () => null}}
-        />
-        <Stack.Screen
-          name="TirarEmpoeirados"
-          component={TirarEmpoeirados}
-          options={{header: () => null}}
-        />
-      </Stack.Navigator>
+      <LivroProvider>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Estante"
+            component={Estante}
+            options={{header: () => null}}
+          />
+          <Stack.Screen
+            name="LerLivro"
+            component={LerLivro}
+            options={{header: () => null}}
+          />
+          <Stack.Screen
+            name="ListaDeDesejos"
+            component={ListaDeDesejos}
+            options={{header: () => null}}
+          />
+          <Stack.Screen
+            name="LivroLidoPag"
+            component={LivroLidoPag}
+            options={{header: () => null}}
+          />
+          <Stack.Screen
+            name="NovoLivro"
+            component={NovoLivro}
+            options={{header: () => null}}
+          />
+          <Stack.Screen
+            name="TirarEmpoeirados"
+            component={TirarEmpoeirados}
+            options={{header: () => null}}
+          />
+        </Stack.Navigator>
+      </LivroProvider>
     </NavigationContainer>
   );
 }

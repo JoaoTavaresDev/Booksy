@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import BotaoHome from '../components/BotaoHome.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const NovoLivro = ({navigation, route}) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
@@ -20,7 +21,7 @@ const NovoLivro = ({navigation, route}) => {
   console.log(livros[1]);
 
   const salvarLivro = () => {
-    livros.push({
+    const livro = {
       nomeLivro: 'É assim que acaba',
       categoria: 'Lendo',
       nomeAutor: 'Emily Brontë',
@@ -29,8 +30,17 @@ const NovoLivro = ({navigation, route}) => {
       comentarios: 'livro ruim',
       paginasTotal: '200',
       paginaAtual: '50',
-    });
-    navigation.goBack();
+    };
+    storeData(livro).then(navigation.goBack());
+  };
+
+  const storeData = async value => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('livros', jsonValue);
+    } catch (e) {
+      // saving error
+    }
   };
 
   return (
